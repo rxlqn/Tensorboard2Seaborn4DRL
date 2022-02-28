@@ -68,7 +68,7 @@ def tensor2np(params, min_len):
 	return Y
 
 def np2pd(data):
-	label = ['Fixed-input','trans_set','DeepSet', 'lstm']
+	label = ['algo1','algo2','algo3', 'algo4']
 	df = []
 	for i in range(len(data)):
 		df.append(pd.DataFrame(data[i]).melt(var_name='episode',value_name='reward'))
@@ -80,10 +80,11 @@ def np2pd(data):
 if __name__ == '__main__':
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--logdir', default='./plot/', type=str, help='logdir to event file')
+	parser.add_argument('--logdir', default='./logs/', type=str, help='logdir to event file')
 
 	args = parser.parse_args()
 	params = vars(args) # convert to ordinary dict
-	Y = tensor2np(params,300)
+	min_len = 300
+	Y = tensor2np(params, min_len)
 	pd = np2pd(Y)
 	plot_vanilla(pd)
